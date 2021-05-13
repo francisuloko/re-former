@@ -1,0 +1,54 @@
+<!--
+<form action='/users' method='post' accept-charset="UTF-8">
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+
+  <label  for='username'>Username</label>
+  <input type='text' id='username' name='user[username]'>
+
+  <label  for='email'>Email</label>
+  <input type='email' id='email' name='user[email]'>
+
+  <label  for='password'>Password</label>
+  <input type='password' id='password' name='user[password]'>
+
+  <input type='submit' value='Submit'>
+</form>
+-->
+
+<!--
+<%= form_tag("/users", method: "post") do %>
+
+  <%= label_tag(:username) %><br/>
+  <%= text_field_tag(:username) %><br/>
+
+  <%= label_tag(:email) %><br/>
+  <%= email_field_tag(:email) %><br/>
+
+  <%= label_tag(:password) %><br/>
+  <%= password_field_tag(:password) %><br/>
+
+  <%= submit_tag %>
+<% end %>
+-->
+
+  <%= form_with(model: @user, local: true) do |f| %>
+    <% if @user.errors.any? %>
+      <div style="border: solid 1px tomato; border-radius: 10px; margin: 30px; padding: 20px; background-color: #eee; width: 200px; color: red;">
+        <p style="font-weight: bold;"><%= pluralize(@user.errors.count, "error") %> prohibited this category from being saved:</p>
+        <% @user.errors.full_messages.each do |message| %>
+          <%= message %><br><br>
+         <% end %>
+      </div>
+    <% end %> 
+
+    <%= f.label :username, "Your username" %>
+    <%= f.text_field :username, value: @user.username %>
+
+    <%= f.label :email %>
+    <%= f.email_field :email, placeholder: 'francisrules@francis.com' %>
+
+    <%= f.label :password %>
+    <%= f.password_field :password %>
+
+    <%= f.submit %>
+  <% end %>
